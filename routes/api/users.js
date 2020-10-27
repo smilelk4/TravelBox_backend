@@ -3,11 +3,11 @@ const { Router } = require('express');
 const { User } = require('../../db/models');
 const { asyncHandler, hashPassword, handleValidationErrors } = require('../../utils');
 const validations = require('../../validators');
-const { generateToken } = require('../../auth');
+const { generateToken, checkIfAuthenticated } = require('../../auth');
 
 const router = Router();
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.send('users');
 });
 
@@ -40,5 +40,11 @@ router.post('/',
     }
   });
 }));
+
+router.get('/token', checkIfAuthenticated, (req, res) => {
+  res.json({
+
+  });
+});
 
 module.exports = router;
