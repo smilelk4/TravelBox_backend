@@ -22,13 +22,13 @@ module.exports = (sequelize, DataTypes) => {
   MyWish.init({
     collectionId: DataTypes.INTEGER,
     description: {
-        type: Sequelize.STRING(300)
+        type: DataTypes.STRING(300)
     },
     country: {
-      type: Sequelize.STRING(50)
+      type: DataTypes.STRING(50)
     },
     regionCity: {
-      type: Sequelize.STRING(80)
+      type: DataTypes.STRING(80)
     },
     targetSaving: DataTypes.STRING,
     interestLevel: DataTypes.STRING,

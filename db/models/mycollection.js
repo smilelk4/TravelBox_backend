@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId'
       });
 
-      MyCollection.hasMany(models.Wish, {
+      MyCollection.hasMany(models.MyWish, {
         foreignKey: 'collectionId'
       });
     }
