@@ -3,6 +3,7 @@ const { Router } = require('express');
 const { User } = require('../../db/models');
 const { asyncHandler, hashPassword, handleValidationErrors } = require('../../utils');
 const validations = require('../../validators');
+const { generateToken } = require('../../auth');
 
 const router = Router();
 
@@ -25,8 +26,11 @@ router.post('/',
     hashedPassword,
     profileImage: profileImage.trim()
   });
+
+  const { token } = generateToken(user.id, user.username);
  
   res.status(201).json({
+    token,
     user: {
       id: user.id,
       firstName: user.firstName,
