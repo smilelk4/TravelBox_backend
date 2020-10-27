@@ -28,7 +28,8 @@ module.exports = {
         type: Sequelize.NUMERIC
       },
       interestLevel: {
-        type: Sequelize.NUMERIC
+        type: Sequelize.NUMERIC,
+        defaultValue: 0
       },
       targetDate: {
         type: Sequelize.DATE
