@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 
-const { User } = require('../../db/models');
+const { User, MyCollection } = require('../../db/models');
 const { asyncHandler, hashPassword, handleValidationErrors } = require('../../utils');
 const validations = require('../../validators');
 const { generateToken, checkIfAuthenticated } = require('../../auth');
@@ -81,5 +81,19 @@ router.get('/token', checkIfAuthenticated, (req, res) => {
     username
   });
 });
+
+router.get('/:id/collections', asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const user = await User.findOne({
+    where: { id },
+    include: {
+      model: MyCollection
+    }
+  })
+
+  res.json({
+    ...user.MyCollections
+  });
+}));
 
 module.exports = router;
