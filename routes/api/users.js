@@ -86,9 +86,7 @@ router.get('/:id/collections', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const user = await User.findOne({
     where: { id },
-    include: {
-      model: MyCollection
-    }
+    include: { model: MyCollection }
   })
 
   res.json({
