@@ -26,7 +26,7 @@ router.post('/auth', asyncHandler(async (req, res, next) => {
         id: res.locals.user.id,
         firstName: res.locals.user.firstName,
         lastName: res.locals.user.lastName,
-        imageUrl: res.locals.user.imageUrl,
+        imageUrl: res.locals.user.profileImage,
         username: res.locals.user.username
       }
     });
@@ -65,7 +65,7 @@ router.post('/',
       id: res.locals.user.id,
       firstName: res.locals.user.firstName,
       lastName: res.locals.user.lastName,
-      imageUrl: res.locals.user.imageUrl,
+      imageUrl: res.locals.user.profileImage,
       username: res.locals.user.username
     }
   });
