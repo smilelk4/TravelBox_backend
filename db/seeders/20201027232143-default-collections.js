@@ -24,6 +24,13 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        userId: 1,
+        collectionName: 'Beace Vacation',
+        description: 'Maybe Key West?',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 

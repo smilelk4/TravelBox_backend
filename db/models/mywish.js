@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      MyWish.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
       MyWish.belongsTo(models.MyCollection, {
         foreignKey: 'collectionId'
       });
@@ -20,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   MyWish.init({
+    userId: DataTypes.INTEGER,
     collectionId: DataTypes.INTEGER,
     description: {
         type: DataTypes.STRING(300)

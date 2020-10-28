@@ -4,6 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('MyWishes', [
       {
+        userId: 1,
         collectionId: 1,
         description: 'Flavian Amphitheatre',
         country: 'Italy',
@@ -17,6 +18,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
         collectionId: 1,
         description: 'Pantheon',
         country: 'Italy',
@@ -30,6 +32,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
         collectionId: 1,
         description: 'Roman Forum',
         country: 'Italy',
@@ -43,6 +46,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
         collectionId: 1,
         description: 'Trevi Fountain',
         country: 'Italy',
@@ -56,6 +60,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
         collectionId: 1,
         description: 'Palatine Hill',
         country: 'Italy',
@@ -69,6 +74,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
         collectionId: 2,
         description: 'Great Wall of China',
         country: 'China',
@@ -82,11 +88,26 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
         collectionId: 2,
         description: 'Kyoto',
         country: 'Japan',
         regionCity: '',
         targetSaving: 500,
+        interestLevel: 9,
+        targetDate: new Date(),
+        starred: true,
+        accomplished: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userId: 1,
+        collectionId: 4,
+        description: 'Scuba Diving',
+        country: 'USA',
+        regionCity: 'Miami, FL',
+        targetSaving: 800,
         interestLevel: 9,
         targetDate: new Date(),
         starred: true,

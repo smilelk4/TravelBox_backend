@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 
-const { User, MyCollection } = require('../../db/models');
+const { User, MyCollection, MyWish } = require('../../db/models');
 const { asyncHandler, hashPassword, handleValidationErrors } = require('../../utils');
 const validations = require('../../validators');
 const { generateToken, checkIfAuthenticated } = require('../../auth');
@@ -110,13 +110,13 @@ router.get('/:id/collections', asyncHandler(async (req, res) => {
 
 router.get('/:id/wishes', asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const user = await User.findOne({
-    where: { id },
-    include: { model: MyWish }
-  });
 
+  const wishes = await MyWish.findAll({
+    where: { userId: id }
+  });
+  
   res.json({
-    wishes: user.MyWish
+    wishes
   });
 }));
 
