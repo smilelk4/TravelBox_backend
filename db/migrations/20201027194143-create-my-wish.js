@@ -21,6 +21,10 @@ module.exports = {
           model: 'MyCollections'
         }
       },
+      title: {
+        type: Sequelize.STRING(80),
+        allowNull: false
+      },
       description: {
         type: Sequelize.STRING(300)
       },
@@ -30,14 +34,14 @@ module.exports = {
       regionCity: {
         type: Sequelize.STRING(80)
       },
-      targetSaving: {
+      goalSaving: {
         type: Sequelize.NUMERIC
       },
       interestLevel: {
         type: Sequelize.NUMERIC,
         defaultValue: 0
       },
-      targetDate: {
+      goalDate: {
         type: Sequelize.DATE
       },
       starred: {

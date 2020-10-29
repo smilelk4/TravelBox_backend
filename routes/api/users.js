@@ -84,15 +84,11 @@ router.get('/token', checkIfAuthenticated, (req, res) => {
 
 router.get('/:id/collections', asyncHandler(async (req, res) => {
   const id = req.params.id;
+  console.log('!!!!!!!!!', id)
   const user = await User.findOne({
     where: { id },
     include: { model: MyCollection }
   })
-
-  // user.MyCollections.forEach(c => console.log(c.toJSON()))
-  // [...user.MyCollections)].forEach(collection => {
-  //   console.log('collection:', collection)
-  // })
 
   res.json({
     collections: user.MyCollections
@@ -100,21 +96,13 @@ router.get('/:id/collections', asyncHandler(async (req, res) => {
 }));
 
 
-router.get('/:id/collections', asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  const user = await User.findOne({
-    where: { id },
-    include: { model: MyCollection }
-  });
-}));
-
-router.get('/:id/wishes', asyncHandler(async (req, res) => {
+router.get('/:id/starred-wishes', asyncHandler(async (req, res) => {
   const id = req.params.id;
 
   const wishes = await MyWish.findAll({
-    where: { userId: id }
+    where: { userId: id, starred: true }
   });
-  
+
   res.json({
     wishes
   });

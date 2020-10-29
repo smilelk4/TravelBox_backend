@@ -6,12 +6,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 1,
-        description: 'Flavian Amphitheatre',
+        title: 'Flavian Amphitheatre',
+        description: 'Colosseum',
         country: 'Italy',
         regionCity: 'Rome',
-        targetSaving: 100,
+        goalSaving: 100,
         interestLevel: 8,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
@@ -20,12 +21,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 1,
-        description: 'Pantheon',
+        title: 'Pantheon',
+        description: 'Want to see the vaulted ceiling.',
         country: 'Italy',
         regionCity: 'Rome',
-        targetSaving: 0,
+        goalSaving: 0,
         interestLevel: 10,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
@@ -34,12 +36,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 1,
-        description: 'Roman Forum',
+        title: 'Roman Forum',
+        description: 'Take a stroll around. Planning on spending at least 2 hours there.',
         country: 'Italy',
         regionCity: 'Rome',
-        targetSaving: 20,
+        goalSaving: 20,
         interestLevel: 6,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: false,
         accomplished: false,
         createdAt: new Date(),
@@ -48,12 +51,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 1,
-        description: 'Trevi Fountain',
+        title: 'Trevi Fountain',
+        description: 'Astounding sculptures there.',
         country: 'Italy',
         regionCity: 'Rome',
-        targetSaving: 0,
+        goalSaving: 0,
         interestLevel: 8,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
@@ -62,12 +66,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 1,
-        description: 'Palatine Hill',
+        title: 'Palatine Hill',
+        description: 'Need to research more.',
         country: 'Italy',
         regionCity: 'Rome',
-        targetSaving: 0,
+        goalSaving: 0,
         interestLevel: 9,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
@@ -76,12 +81,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 2,
-        description: 'Great Wall of China',
+        title: 'Great Wall of China',
+        description: 'Interesting history behind it.',
         country: 'China',
         regionCity: '',
-        targetSaving: 0,
+        goalSaving: 0,
         interestLevel: 9,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
@@ -90,12 +96,13 @@ module.exports = {
       {
         userId: 1,
         collectionId: 2,
-        description: 'Kyoto',
+        title: 'Kyoto',
+        description: 'I\'ve heard the nature is beautiful there.',
         country: 'Japan',
-        regionCity: '',
-        targetSaving: 500,
+        regionCity: 'Kyoto',
+        goalSaving: 500,
         interestLevel: 9,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
@@ -104,26 +111,22 @@ module.exports = {
       {
         userId: 1,
         collectionId: 4,
-        description: 'Scuba Diving',
+        title: 'Scuba Diving',
+        description: 'Looking for a good beach.',
         country: 'USA',
         regionCity: 'Miami, FL',
-        targetSaving: 800,
+        goalSaving: 800,
         interestLevel: 9,
-        targetDate: new Date(),
+        goalDate: new Date(),
         starred: true,
         accomplished: false,
         createdAt: new Date(),
         updatedAt: new Date()
-      },
+      }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete('MyWishes', null, {});
   }
 };

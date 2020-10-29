@@ -24,7 +24,11 @@ module.exports = (sequelize, DataTypes) => {
   };
   MyWish.init({
     userId: DataTypes.INTEGER,
-    collectionId: DataTypes.INTEGER,
+    collectionId: DataTypes.INTEGER,      
+    title: {
+        type: DataTypes.STRING(80),
+        allowNull: false
+    },
     description: {
         type: DataTypes.STRING(300)
     },
@@ -34,9 +38,9 @@ module.exports = (sequelize, DataTypes) => {
     regionCity: {
       type: DataTypes.STRING(80)
     },
-    targetSaving: DataTypes.STRING,
+    goalSaving: DataTypes.STRING,
     interestLevel: DataTypes.STRING,
-    targetDate: DataTypes.DATE,
+    goalDate: DataTypes.DATE,
     starred: DataTypes.BOOLEAN,
     accomplished: DataTypes.BOOLEAN
   }, {
