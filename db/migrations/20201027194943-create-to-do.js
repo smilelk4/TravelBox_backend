@@ -15,15 +15,17 @@ module.exports = {
           model: 'MyWishes'
         }
       },
-      title: {
-        type: Sequelize.STRING(50)
-      },
       description: {
         type: Sequelize.STRING(300),
         allowNull: false
       },
-      targetSaving: {
-        type: Sequelize.NUMERIC
+      completed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      goalSaving: {
+        type: Sequelize.NUMERIC,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

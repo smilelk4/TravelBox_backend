@@ -35,7 +35,8 @@ module.exports = {
         type: Sequelize.STRING(80)
       },
       goalSaving: {
-        type: Sequelize.NUMERIC
+        type: Sequelize.NUMERIC,
+        defaultValue: 0
       },
       interestLevel: {
         type: Sequelize.NUMERIC,

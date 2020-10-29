@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    title: DataTypes.STRING(50),
     description: {
       type: DataTypes.STRING(300),
       allowNull: false
     },
-    targetSaving: DataTypes.NUMERIC
+    completed: DataTypes.BOOLEAN,
+    goalSaving: DataTypes.NUMERIC
   }, {
     sequelize,
     modelName: 'ToDo',
