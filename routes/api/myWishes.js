@@ -5,25 +5,29 @@ const { MyWish } = require('../../db/models');
 const router = express.Router();
 
 router.post('/', asyncHandler(async (req, res, next) => {
-  const { collectionId,
+  const { 
+          collectionId,
+          title,
           description,
           country,
           regionCity,
-          targetSaving,
+          goalSaving,
           interestLevel,
-          targetDate,
+          goalDate,
           starred,
           accomplished
         } = req.body;
 
   const wish = await MyWish.create({
+    userId,
     collectionId,
+    title,
     description,
     country,
     regionCity,
-    targetSaving,
+    goalSaving,
     interestLevel,
-    targetDate,
+    goalDate,
     starred,
     accomplished
   });

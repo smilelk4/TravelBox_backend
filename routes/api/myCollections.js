@@ -1,6 +1,6 @@
 const express = require('express');
 const { asyncHandler } = require('../../utils');
-const { MyCollection, MyWish } = require('../../db/models');
+const { MyCollection, MyWish, ToDo } = require('../../db/models');
 
 const router = express.Router();
 
@@ -11,7 +11,10 @@ router.get('/:id', asyncHandler(async (req, res) => {
     include: { 
       model: MyWish,
       where: {
-        collectionId: id
+        collectionId: id,
+      },
+      include: {
+        model: ToDo
       }
     }
   });

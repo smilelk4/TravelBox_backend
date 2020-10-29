@@ -25,7 +25,7 @@ module.exports = {
         wishId: 2,
         description: 'Need to see what kind of restaurants are available nearby.',
         completed: false,
-        goalSaving: 0,
+        goalSaving: 50,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -39,6 +39,14 @@ module.exports = {
       },
       {
         wishId: 4,
+        description: 'Might need to take a cab to get there from my hotel.',
+        completed: false,
+        goalSaving: 70,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        wishId: 4,
         description: 'Find a good souvenir shop nearby.',
         completed: false,
         goalSaving: 0,
@@ -47,9 +55,9 @@ module.exports = {
       },
       {
         wishId: 6,
-        description: 'null',
+        description: 'Find how to get there.',
         completed: false,
-        goalSaving: 200,
+        goalSaving: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -65,7 +73,7 @@ module.exports = {
         wishId: 8,
         description: 'Find top 5 scuba diving locations.',
         completed: false,
-        goalSaving: 0,
+        goalSaving: 400,
         createdAt: new Date(),
         updatedAt: new Date()
       },
