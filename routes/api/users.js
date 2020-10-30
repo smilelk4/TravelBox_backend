@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const { User, MyCollection, MyWish, ToDo } = require('../../db/models');
 const { asyncHandler, hashPassword, handleValidationErrors } = require('../../utils');
-const validations = require('../../validators');
+const userValidation = require('../../validators/userValidators');
 const { generateToken, checkIfAuthenticated } = require('../../auth');
 
 const router = Router();
@@ -38,7 +38,7 @@ router.post('/auth', asyncHandler(async (req, res, next) => {
 }));
 
 router.post('/', 
-  validations,
+  userValidation,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
   const { username, firstName, lastName, email, password, profileImage } = req.body;
