@@ -23,12 +23,14 @@ router.get('/:id', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const collection = await MyCollection.findOne({
     where: { id },
-    include: { 
+    include: [{
       model: MyWish,
       include: {
         model: ToDo
       }
-    }
+    }, {
+      model: CollectionImage
+    }]
   });
   
   res.json({
