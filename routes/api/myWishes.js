@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/', asyncHandler(async (req, res, next) => {
   const { 
+          userId,
           collectionId,
           title,
           description,
@@ -27,7 +28,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
     regionCity,
     goalSaving,
     interestLevel,
-    goalDate,
+    goalDate: goalDate || null,
     starred,
     accomplished
   });
