@@ -1,6 +1,7 @@
 const express = require('express');
 const { asyncHandler } = require('../../utils');
 const { MyCollection, MyWish, ToDo } = require('../../db/models');
+const { checkIfAuthenticated } = require('../../auth');
 
 const router = express.Router();
 
@@ -10,9 +11,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
     where: { id },
     include: { 
       model: MyWish,
-      where: {
-        collectionId: id,
-      },
       include: {
         model: ToDo
       }
@@ -24,7 +22,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
   });
 }));
 
-router.post('/', asyncHandler(async (req, res, next) => {
+router.post('/', checkIfAuthenticated, asyncHandler(async (req, res, next) => {
   const { userId, collectionName, description } = req.body;
   const collection = await MyCollection.create({
     userId,
