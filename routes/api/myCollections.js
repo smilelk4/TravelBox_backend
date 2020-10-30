@@ -1,6 +1,6 @@
 const express = require('express');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
-const { MyCollection, MyWish, ToDo } = require('../../db/models');
+const { MyCollection, MyWish, ToDo, CollectionImage } = require('../../db/models');
 const { checkIfAuthenticated } = require('../../auth');
 const collectionValidation = require('../../validators/collectionValidators');
 const multer = require('multer');
@@ -36,14 +36,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
   });
 }));
 
-const fileFilter = (req, res, next) => {
-  const file = req.files[0];
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    next();
-  } else {
+const fileFilter = file => {
+  if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
     const err = new Error('Only JPEG and PNG files are accepted.');
     err.status = 422;
-    next(err);
+    throw err;
   }
 }
 
@@ -52,30 +49,44 @@ upload.any(),
 checkIfAuthenticated, 
 collectionValidation,
 handleValidationErrors,
-fileFilter,
+// fileFilter,
 asyncHandler(async (req, res, next) => {
   const { userId, collectionName, description } = req.body;
   const file = req.files[0];
 
-  const params = {
-    Bucket: 'travel-box-images',
-    Key: Date.now().toString() + file.originalname,
-    Body: file.buffer,
-    ACL: 'public-read',
-    ContentType: file.mimetype
-  }
-
-  const promise = s3.upload(params).promise();
-  const uploadedImage = await promise;
-  console.log(uploadedImage)
   const collection = await MyCollection.create({
     userId,
     collectionName,
     description
   });
 
+  if (file) {
+    fileFilter(file);
+    const params = {
+      Bucket: 'travel-box-images',
+      Key: Date.now().toString() + file.originalname,
+      Body: file.buffer,
+      ACL: 'public-read',
+      ContentType: file.mimetype
+    }
+    const promise = s3.upload(params).promise();
+    const uploadedImage = await promise;
+    const imageUrl = uploadedImage.Location;
+
+    const collectionImage = await CollectionImage.create({
+      collectionId: collection.id,
+      image: imageUrl
+    });
+
+    res.status(201).json({
+      ...collection.toJSON(),
+      ...collectionImage.toJSON()
+    });
+    return;
+  }
+
   res.status(201).json({
-    ...collection.toJSON()
+    ...collection.toJSON(),
   });
 }));
 
