@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "morgan": "^1.10.0",
     "bcrypt": "^5.0.0",
     "per-env": "^1.0.2",
     "cors": "^2.8.5",
@@ -26,9 +27,7 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "dotenv-cli": "^4.0.0",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
-    "per-env": "^1.0.2",
     "sequelize-cli": "^6.2.0"
   }
 }
