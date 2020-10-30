@@ -1,10 +1,16 @@
 const express = require('express');
-const { asyncHandler } = require('../../utils');
+const { asyncHandler, handleValidationErrors } = require('../../utils');
 const { MyWish } = require('../../db/models');
+const { checkIfAuthenticated } = require('../../auth');
+const wishValidation = require('../../validators/wishValidators');
 
 const router = express.Router();
 
-router.post('/', asyncHandler(async (req, res, next) => {
+router.post('/', 
+checkIfAuthenticated,
+wishValidation,
+handleValidationErrors,
+asyncHandler(async (req, res, next) => {
   const { 
           userId,
           collectionId,
