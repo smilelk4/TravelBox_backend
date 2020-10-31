@@ -6,6 +6,17 @@ const wishValidation = require('../../validators/wishValidators');
 
 const router = express.Router();
 
+router.get('/:id', asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const wish = await MyWish.findOne({
+    where: { id }
+  });
+  
+  res.json({
+    wish
+  });
+}));
+
 router.post('/', 
 checkIfAuthenticated,
 wishValidation,
