@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Images', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Images', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'User'
+          model: 'Users'
         }
       },
       wishId: {
@@ -41,7 +41,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Images');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Images');
   }
 };

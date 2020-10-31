@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     Image.belongsTo(models.User, {
       foreignKey: 'userId'
     });
-    Image.belongsTo(models.MyWishes, {
+    Image.belongsTo(models.MyWish, {
       foreignKey: 'wishId'
     });
     Image.belongsTo(models.MyCollection, {
