@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       MyWish.hasMany(models.ToDo, {
         foreignKey: 'wishId'
       });
+
+      MyWish.hasMany(models.Image, {
+        foreignKey: 'collectionId'
+      });
     }
   };
   MyWish.init({

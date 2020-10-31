@@ -1,6 +1,6 @@
 const express = require('express');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
-const { MyCollection, MyWish, ToDo, CollectionImage } = require('../../db/models');
+const { MyCollection, MyWish, ToDo, Image } = require('../../db/models');
 const { checkIfAuthenticated } = require('../../auth');
 const collectionValidation = require('../../validators/collectionValidators');
 const multer = require('multer');
@@ -29,7 +29,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
         model: ToDo
       }
     }, {
-      model: CollectionImage
+      model: Image
     }]
   });
   
@@ -75,7 +75,7 @@ asyncHandler(async (req, res, next) => {
     const uploadedImage = await promise;
     const imageUrl = uploadedImage.Location;
 
-    const collectionImage = await CollectionImage.create({
+    const collectionImage = await Image.create({
       collectionId: collection.id,
       image: imageUrl
     });

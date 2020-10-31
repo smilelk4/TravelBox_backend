@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'collectionId'
       });
 
-      MyCollection.hasMany(models.CollectionImage, {
+      MyCollection.hasMany(models.Image, {
         foreignKey: 'collectionId'
       });
     }
