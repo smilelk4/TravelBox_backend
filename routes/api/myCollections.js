@@ -55,11 +55,6 @@ handleValidationErrors,
 asyncHandler(async (req, res, next) => {
   const { userId, collectionName, description } = req.body;
   const { id } = req.params;
-
-  console.log(userId)
-  console.log(collectionName)
-  console.log(description)
-  console.log(id)
   const file = req.files[0];
 
   const collection = await MyCollection.findByPk(id);
@@ -144,16 +139,29 @@ asyncHandler(async (req, res, next) => {
       image: imageUrl
     });
 
-    res.status(201).json({
+    res.status(202).json({
       ...collection.toJSON(),
       ...collectionImage.toJSON()
     });
     return;
   }
 
-  res.status(201).json({
+  res.status(202).json({
     ...collection.toJSON(),
   });
+}));
+
+router.delete('/:id', 
+checkIfAuthenticated, 
+asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const collection = await MyCollection.findOne({
+    where: { id }
+  })
+
+  await collection.destroy();
+
+  res.status(202);
 }));
 
 module.exports = router;
