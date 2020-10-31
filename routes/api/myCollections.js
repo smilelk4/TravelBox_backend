@@ -26,7 +26,8 @@ router.get('/:id', asyncHandler(async (req, res) => {
     include: [{
       model: MyWish,
       include: {
-        model: ToDo
+        model: ToDo,
+        model: Image
       }
     }, {
       model: Image
@@ -45,6 +46,68 @@ const fileFilter = file => {
     throw err;
   }
 }
+
+router.put('/:id', 
+upload.any(),
+checkIfAuthenticated, 
+collectionValidation,
+handleValidationErrors,
+asyncHandler(async (req, res, next) => {
+  const { userId, collectionName, description } = req.body;
+  const { id } = req.params;
+
+  console.log(userId)
+  console.log(collectionName)
+  console.log(description)
+  console.log(id)
+  const file = req.files[0];
+
+  const collection = await MyCollection.findByPk(id);
+
+  collection.update({
+    userId,
+    collectionName,
+    description
+  });
+
+  if (file) {
+    fileFilter(file);
+    const params = {
+      Bucket: 'travel-box-images',
+      Key: Date.now().toString() + file.originalname,
+      Body: file.buffer,
+      ACL: 'public-read',
+      ContentType: file.mimetype
+    }
+    const promise = s3.upload(params).promise();
+    const uploadedImage = await promise;
+    const imageUrl = uploadedImage.Location;
+
+    const oldCollectionImage = await Image.findOne({
+      where: {
+        collectionId: id
+      }
+    })
+
+    await oldCollectionImage.destroy();
+
+    const newCollectionImage = await Image.create({
+      userId,
+      collectionId: collection.id,
+      image: imageUrl
+    });
+
+    res.status(201).json({
+      ...collection.toJSON(),
+      ...newCollectionImage.toJSON()
+    });
+    return;
+  }
+
+  res.status(201).json({
+    ...collection.toJSON(),
+  });
+}));
 
 router.post('/', 
 upload.any(),
@@ -76,6 +139,7 @@ asyncHandler(async (req, res, next) => {
     const imageUrl = uploadedImage.Location;
 
     const collectionImage = await Image.create({
+      userId,
       collectionId: collection.id,
       image: imageUrl
     });
