@@ -55,4 +55,46 @@ asyncHandler(async (req, res, next) => {
   });
 }));
 
+
+router.put('/:id', 
+checkIfAuthenticated, 
+wishValidation,
+handleValidationErrors,
+asyncHandler(async (req, res, next) => {
+  const { 
+        userId,
+        collectionId,
+        title,
+        description,
+        country,
+        regionCity,
+        goalSaving,
+        interestLevel,
+        goalDate,
+        starred,
+        accomplished
+      } = req.body;
+  const { id } = req.params;
+
+  const wish = await MyWish.findByPk(id);
+
+  wish.update({
+    userId,
+    collectionId,
+    title,
+    description,
+    country,
+    regionCity,
+    goalSaving,
+    interestLevel,
+    goalDate,
+    starred,
+    accomplished
+  });
+
+  res.status(201).json({
+    ...wish.toJSON(),
+  });
+}));
+
 module.exports = router;
