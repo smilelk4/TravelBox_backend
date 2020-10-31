@@ -92,9 +92,23 @@ asyncHandler(async (req, res, next) => {
     accomplished
   });
 
-  res.status(201).json({
+  res.status(202).json({
     ...wish.toJSON(),
   });
+}));
+
+router.delete('/:id', 
+checkIfAuthenticated, 
+asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  console.log('!!!!!', id)
+  const wish = await MyWish.findOne({
+    where: { id }
+  })
+
+  await wish.destroy();
+
+  res.status(202);
 }));
 
 module.exports = router;

@@ -13,11 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       MyWish.hasMany(models.ToDo, {
-        foreignKey: 'wishId'
+        foreignKey: 'wishId',
+        onDelete: 'CASCADE',
+        hooks: true
       });
 
       MyWish.hasMany(models.Image, {
-        foreignKey: 'collectionId'
+        foreignKey: 'wishId',
+        onDelete: 'CASCADE',
+        hooks: true
       });
     }
   };
