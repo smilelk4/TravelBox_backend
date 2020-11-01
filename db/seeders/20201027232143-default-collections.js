@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         userId: 1,
-        collectionName: 'Beace Vacation',
+        collectionName: 'Beach Vacation',
         description: 'Maybe Key West?',
         createdAt: new Date(),
         updatedAt: new Date()

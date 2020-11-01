@@ -44,18 +44,14 @@ router.post('/',
   const { username, firstName, lastName, email, password, profileImage } = req.body;
   const hashedPassword = await hashPassword(password.trim());
 
-  try {
-    res.locals.user = await User.create({
-      username: username.trim(),
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      email: email.trim(),
-      hashedPassword,
-      profileImage: profileImage.trim()
-    });
-  } catch(e) {
-    next(e);
-  }
+  res.locals.user = await User.create({
+    username: username.trim(),
+    firstName: firstName.trim(),
+    lastName: lastName.trim(),
+    email: email.trim(),
+    hashedPassword,
+    profileImage: 'https://travel-box-images.s3.us-east-2.amazonaws.com/external-content.duckduckgo-1.jpg'
+  });
 
   const { token } = generateToken(res.locals.user.id, res.locals.user.username);
  
@@ -86,7 +82,9 @@ router.get('/:id/collections', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const user = await User.findOne({
     where: { id },
-    include: { model: MyCollection }
+    include: { 
+      model: MyCollection
+    }
   })
 
   res.json({
@@ -99,7 +97,8 @@ router.get('/:id/starred-wishes', asyncHandler(async (req, res) => {
   const id = req.params.id;
 
   const wishes = await MyWish.findAll({
-    where: { userId: id, starred: true }
+    where: { userId: id, starred: true },
+    order: [['updatedAt', 'DESC']]
   });
 
   res.json({

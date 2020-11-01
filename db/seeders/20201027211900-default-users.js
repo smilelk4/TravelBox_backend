@@ -9,7 +9,7 @@ module.exports = {
         lastName: 'mo',
         email: 'demo@demo.com',
         hashedPassword:'$2b$10$WdnORAEPHjhPcI4bJKApyubiJiIRXtPpYIi997yicx2uxqLoXY/I6',
-        profileImage: null,
+        profileImage: 'https://travel-box-images.s3.us-east-2.amazonaws.com/teacher.png',
         createdAt: new Date(),
         updatedAt: new Date()
       }
