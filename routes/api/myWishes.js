@@ -1,6 +1,6 @@
 const express = require('express');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
-const { MyWish } = require('../../db/models');
+const { MyWish, Image } = require('../../db/models');
 const { checkIfAuthenticated } = require('../../auth');
 const wishValidation = require('../../validators/wishValidators');
 
@@ -9,7 +9,10 @@ const router = express.Router();
 router.get('/:id', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const wish = await MyWish.findOne({
-    where: { id }
+    where: { id },
+    include: {
+      model: Image
+    }
   });
   
   res.json({

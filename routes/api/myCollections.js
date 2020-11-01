@@ -84,7 +84,9 @@ asyncHandler(async (req, res, next) => {
       }
     })
 
-    await oldCollectionImage.destroy();
+    if (oldCollectionImage) {
+      await oldCollectionImage.destroy();
+    }
 
     const newCollectionImage = await Image.create({
       userId,
