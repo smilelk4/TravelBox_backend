@@ -104,7 +104,6 @@ router.delete('/:id',
 checkIfAuthenticated, 
 asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  console.log('!!!!!', id)
   const wish = await MyWish.findOne({
     where: { id }
   })
