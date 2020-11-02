@@ -100,6 +100,24 @@ asyncHandler(async (req, res, next) => {
   });
 }));
 
+router.patch('/:id', 
+// checkIfAuthenticated, 
+asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const wish = await MyWish.findOne({
+    where: { id },
+      include: {
+      model: Image
+    }
+  });
+  
+  wish.update({
+    starred: !wish.starred
+  })
+
+  return res.status(202).json({...wish.toJSON()});
+}));
+
 router.delete('/:id', 
 checkIfAuthenticated, 
 asyncHandler(async (req, res, next) => {
