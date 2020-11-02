@@ -1,31 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MyWish extends Model {
-    static associate(models) {
-      MyWish.belongsTo(models.User, {
-        foreignKey: 'userId'
-      });
-      MyWish.belongsTo(models.MyCollection, {
-        foreignKey: 'collectionId'
-      });
-
-      MyWish.hasMany(models.ToDo, {
-        foreignKey: 'wishId',
-        onDelete: 'CASCADE',
-        hooks: true
-      });
-
-      MyWish.hasMany(models.Image, {
-        foreignKey: 'wishId',
-        onDelete: 'CASCADE',
-        hooks: true
-      });
-    }
-  };
-  MyWish.init({
+  const MyWish = sequelize.define('MyWish', {
     userId: DataTypes.INTEGER,
     collectionId: DataTypes.INTEGER,      
     title: {
@@ -46,9 +21,26 @@ module.exports = (sequelize, DataTypes) => {
     goalDate: DataTypes.DATE,
     starred: DataTypes.BOOLEAN,
     accomplished: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'MyWish',
-  });
+  }, {});
+  MyWish.associate = function(models) {
+    MyWish.belongsTo(models.User, {
+      foreignKey: 'userId'
+    });
+    MyWish.belongsTo(models.MyCollection, {
+      foreignKey: 'collectionId'
+    });
+
+    MyWish.hasMany(models.ToDo, {
+      foreignKey: 'wishId',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+
+    MyWish.hasMany(models.Image, {
+      foreignKey: 'wishId',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+  };
   return MyWish;
 };
