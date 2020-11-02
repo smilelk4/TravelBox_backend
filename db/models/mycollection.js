@@ -1,37 +1,29 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MyCollection extends Model {
-    static associate(models) {
-      MyCollection.belongsTo(models.User, {
-        foreignKey: 'userId'
-      });
-
-      MyCollection.hasMany(models.MyWish, {
-        foreignKey: 'collectionId',
-        onDelete: 'CASCADE',
-        hooks: true
-      });
-
-      MyCollection.hasMany(models.Image, {
-        foreignKey: 'collectionId',
-        onDelete: 'CASCADE',
-        hooks: true
-      });
-    }
-  };
-  MyCollection.init({
+  const MyCollection = sequelize.define('MyCollection', {
     userId: DataTypes.INTEGER,
     collectionName: {
       type: DataTypes.STRING(30),
       allowNull: false
     },
     description: DataTypes.STRING(300)
-  }, {
-    sequelize,
-    modelName: 'MyCollection',
-  });
+  }, {});
+  MyCollection.associate = function(models) {
+    MyCollection.belongsTo(models.User, {
+      foreignKey: 'userId'
+    });
+
+    MyCollection.hasMany(models.MyWish, {
+      foreignKey: 'collectionId',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+
+    MyCollection.hasMany(models.Image, {
+      foreignKey: 'collectionId',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+  };
   return MyCollection;
 };
