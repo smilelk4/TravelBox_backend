@@ -111,6 +111,7 @@ asyncHandler(async (req, res, next) => {
 
 
 router.put('/:id', 
+upload.any(),
 checkIfAuthenticated, 
 wishValidation,
 handleValidationErrors,
@@ -125,10 +126,11 @@ asyncHandler(async (req, res, next) => {
         goalSaving,
         interestLevel,
         goalDate,
-        starred,
-        accomplished
+        // starred,
+        // accomplished
       } = req.body;
   const { id } = req.params;
+  const file = req.files[0];
 
   const wish = await MyWish.findByPk(id);
 
@@ -142,9 +144,47 @@ asyncHandler(async (req, res, next) => {
     goalSaving,
     interestLevel,
     goalDate,
-    starred,
-    accomplished
+    // starred,
+    // accomplished
   });
+
+  if (file) {
+    fileFilter(file);
+    const params = {
+      Bucket: 'travel-box-images',
+      Key: Date.now().toString() + file.originalname,
+      Body: file.buffer,
+      ACL: 'public-read',
+      ContentType: file.mimetype
+    }
+    const promise = s3.upload(params).promise();
+    const uploadedImage = await promise;
+    const imageUrl = uploadedImage.Location;
+
+    const oldWishImage = await Image.findOne({
+      where: {
+        wishId: id
+      }
+    })
+
+    if (oldWishImage) {
+      await oldWishImage.destroy();
+    }
+
+    const newWishImage = await Image.create({
+      userId,
+      wishId: wish.id,
+      image: imageUrl
+    });
+
+    newWishImage.collectionId = wish.collectionId;
+
+    res.status(201).json({
+      ...wish.toJSON(),
+      ...newWishImage.toJSON()
+    });
+    return;
+  }
 
   res.status(202).json({
     ...wish.toJSON(),
